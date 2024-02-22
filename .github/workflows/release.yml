@@ -46,7 +46,7 @@ jobs:
         id: semvers
       - name: "Generate Changelog"
         id: changelog
-        uses: mikepenz/release-changelog-builder-action@v2
+        uses: mikepenz/release-changelog-builder-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

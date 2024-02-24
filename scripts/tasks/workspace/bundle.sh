@@ -5,7 +5,7 @@ set -euo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR=$($SCRIPT_DIR/../../utilities/root_dir.sh)
 TMP_DIR=/private$(mktemp -d)
-# trap "rm -rf $TMP_DIR" EXIT
+trap "rm -rf $TMP_DIR" EXIT
 
 echo $TMP_DIR
 XCODE_BUILD_DIR=$TMP_DIR/build

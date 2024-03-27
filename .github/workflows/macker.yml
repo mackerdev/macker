@@ -10,6 +10,9 @@ concurrency:
   group: macker-${{ github.head_ref }}
   cancel-in-progress: true
 
+env:
+  TUIST_CONFIG_CLOUD_TOKEN: ${{ secrets.TUIST_CONFIG_CLOUD_TOKEN }}
+
 jobs:
   build:
     name: "Build"
@@ -57,8 +60,6 @@ jobs:
   cache:
     name: Cache
     runs-on: macos-13
-    env:
-      TUIST_CONFIG_CLOUD_TOKEN: ${{ secrets.TUIST_CONFIG_CLOUD_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2

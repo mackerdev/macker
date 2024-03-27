@@ -12,21 +12,7 @@ concurrency:
 
 jobs:
   build:
-    name: "Release build on ${{ matrix.os }}"
-    strategy:
-      matrix:
-        os: [macos-13]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
-        with:
-          experimental: true
-      - name: Run
-        run: mise run build
-
-  build_tuist:
-    name: "Tuist build"
+    name: "Build"
     runs-on: "macos-13"
     steps:
       - uses: actions/checkout@v4
@@ -38,24 +24,10 @@ jobs:
       - name: Run
         run: |
           mise x -- tuist install
-          mise run build:tuist
+          mise run build
 
   test:
-    name: "Test on ${{ matrix.os }}"
-    strategy:
-      matrix:
-        os: [macos-13]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
-        with:
-          experimental: true
-      - name: Run
-        run: mise run test
-
-  test_tuist:
-    name: "Tuist test"
+    name: "Test"
     runs-on: "macos-13"
     env:
       TUIST_CONFIG_CLOUD_TOKEN: ${{ secrets.TUIST_CONFIG_CLOUD_TOKEN }}
@@ -69,7 +41,7 @@ jobs:
       - name: Run
         run: |
           mise x -- tuist install
-          mise run test:tuist
+          mise run test
 
   lint:
     name: Lint

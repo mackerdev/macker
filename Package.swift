@@ -7,7 +7,8 @@ let package = Package(
     name: "macker",
     platforms: [.macOS("11.0")],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0"),
+        .package(url: "https://github.com/Kolos65/Mockable", .upToNextMajor(from: "0.0.4")),
+        .package(url: "https://github.com/apple/swift-docc-plugin", .upToNextMajor(from: "1.3.0")),
         .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMajor(from: "1.3.1")),
     ]
 )

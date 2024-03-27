@@ -51,7 +51,7 @@ public enum Module: CaseIterable {
             "Sources/\(name)/**/*.swift",
         ]
     }
-    
+
     var hasTests: Bool {
         switch self {
         case .macker:
@@ -60,7 +60,7 @@ public enum Module: CaseIterable {
             return true
         }
     }
-    
+
     public var targets: [Target] {
         var targets: [Target] = [
             .target(
@@ -70,10 +70,15 @@ public enum Module: CaseIterable {
                 bundleId: bundleId,
                 deploymentTargets: .macOS("14.0.0"),
                 sources: sources,
-                dependencies: dependencies
-            )
+                dependencies: dependencies + [.external(name: "Mockable")],
+                settings: .settings(configurations: [
+                    // This is important to exclude the mock implementations from release builds
+                    .debug(name: .debug, settings: ["SWIFT_ACTIVE_COMPILATION_CONDITIONS": "$(inherited) MOCKING"]),
+                    .release(name: .release, settings: [:]),
+                ])
+            ),
         ]
-        
+
         if hasTests {
             targets.append(.target(
                 name: "\(name)Tests",
@@ -82,7 +87,7 @@ public enum Module: CaseIterable {
                 bundleId: bundleId,
                 deploymentTargets: .macOS("14.0.0"),
                 sources: sources,
-                dependencies: dependencies + [.xctest] + [.target(name: name)]
+                dependencies: dependencies + [.xctest, .target(name: name), .external(name: "MockableTest")]
             ))
         }
         return targets

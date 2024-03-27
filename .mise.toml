@@ -8,7 +8,7 @@
 
 [tasks."build"]
 description = "Builds the package using Tuist"
-run = "./scripts/tasks/workspace/build-tuist.sh"
+run = "./scripts/tasks/workspace/build.sh"
 
 [tasks."cache"]
 description = "Warms the Tuist cache"

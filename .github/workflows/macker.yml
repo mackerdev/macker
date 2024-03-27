@@ -53,3 +53,14 @@ jobs:
           experimental: true
       - name: Run
         run: mise run lint
+
+  cache:
+    name: Cache
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+        with:
+          experimental: true
+      - name: Run
+        run: mise run cache

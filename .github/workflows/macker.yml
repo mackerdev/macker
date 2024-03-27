@@ -66,4 +66,6 @@ jobs:
         with:
           experimental: true
       - name: Run
-        run: mise run cache
+        run: |
+          mise x -- tuist install
+          mise run cache

@@ -68,7 +68,7 @@ public enum Module: CaseIterable {
                 destinations: Set(arrayLiteral: destination),
                 product: product,
                 bundleId: bundleId,
-                deploymentTargets: .macOS("11.0.0"),
+                deploymentTargets: .macOS("13.0.0"),
                 sources: sources,
                 dependencies: dependencies + [.external(name: "Mockable")],
                 settings: .settings(configurations: [
@@ -85,7 +85,7 @@ public enum Module: CaseIterable {
                 destinations: Set(arrayLiteral: destination),
                 product: .unitTests,
                 bundleId: bundleId,
-                deploymentTargets: .macOS("14.0.0"),
+                deploymentTargets: .macOS("13.0.0"),
                 sources: sources,
                 dependencies: dependencies + [.xctest, .target(name: name), .external(name: "MockableTest")]
             ))

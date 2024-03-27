@@ -1,7 +1,7 @@
 import XCTest
-@testable import MackerKit
+@testable import MackerPull
 
-final class MackerKitTests: XCTestCase {
+final class MackerPullTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest

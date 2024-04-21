@@ -12,7 +12,7 @@ concurrency:
 jobs:
   docs:
     name: "Docs"
-    runs-on: "macos-13"
+    runs-on: "macos-14"
     env:
       CLOUDFLARE_ACCOUNT_ID: cc0237353f2f825680b0463629cd4a86
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

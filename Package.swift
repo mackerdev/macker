@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "macker",
     dependencies: [
-        .package(url: "https://github.com/Kolos65/Mockable", .upToNextMajor(from: "0.0.7")),
+        .package(url: "https://github.com/Kolos65/Mockable", .upToNextMajor(from: "0.0.8")),
         .package(url: "https://github.com/apple/swift-docc-plugin", .upToNextMajor(from: "1.3.0")),
         .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMajor(from: "1.3.1")),
     ]

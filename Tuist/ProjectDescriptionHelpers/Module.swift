@@ -7,7 +7,7 @@ public enum Module: CaseIterable {
     case network
     case oci
     case storage
-    
+
     public var targetName: String {
         switch self {
         case .macker: "macker"
@@ -18,7 +18,7 @@ public enum Module: CaseIterable {
         case .storage: "MackerStorage"
         }
     }
-    
+
     public var product: Product {
         switch self {
         case .macker:
@@ -27,11 +27,11 @@ public enum Module: CaseIterable {
             return .staticLibrary
         }
     }
-    
+
     public var destination: Destination {
         .mac
     }
-    
+
     public var interfaceTargetName: String? {
         switch self {
         case .macker:
@@ -40,41 +40,41 @@ public enum Module: CaseIterable {
             return "\(targetName)Interface"
         }
     }
-    
+
     public var dependencies: [TargetDependency] {
         switch self {
         case .macker: return [
-            .target(name: Module.pull.targetName),
-            .target(name: Module.run.targetName),
-            .external(name: "ArgumentParser"),
-        ]
+                .target(name: Module.pull.targetName),
+                .target(name: Module.run.targetName),
+                .external(name: "ArgumentParser"),
+            ]
         case .pull: return [
-            .external(name: "ArgumentParser"),
-        ]
+                .external(name: "ArgumentParser"),
+            ]
         case .run: return [
-            .external(name: "ArgumentParser"),
-        ]
+                .external(name: "ArgumentParser"),
+            ]
         case .network, .oci, .storage:
             return []
         }
     }
-    
+
     public var bundleId: String {
         "io.tuist.\(targetName)"
     }
-    
+
     public func sources(targetName: String) -> SourceFilesList {
-        return [
+        [
             "Sources/\(targetName)/**/*.swift",
         ]
     }
-    
+
     public func testSources(targetName: String) -> SourceFilesList {
-        return [
+        [
             "Tests/\(targetName)Tests/**/*.swift",
         ]
     }
-    
+
     var hasTests: Bool {
         switch self {
         case .macker:
@@ -83,11 +83,11 @@ public enum Module: CaseIterable {
             return true
         }
     }
-    
+
     public var targets: [Target] {
         var targets: [Target] = []
-        
-        if let interfaceTargetName = interfaceTargetName {
+
+        if let interfaceTargetName {
             targets.append(.target(
                 name: interfaceTargetName,
                 destinations: Set(arrayLiteral: destination),
@@ -102,7 +102,7 @@ public enum Module: CaseIterable {
                 ])
             ))
         }
-        
+
         targets.append(.target(
             name: targetName,
             destinations: Set(arrayLiteral: destination),
@@ -110,14 +110,15 @@ public enum Module: CaseIterable {
             bundleId: bundleId,
             deploymentTargets: .macOS("13.0.0"),
             sources: sources(targetName: targetName),
-            dependencies: dependencies + [.external(name: "Mockable")] + ( interfaceTargetName != nil ? [.target(name: interfaceTargetName!)] : []),
+            dependencies: dependencies + [.external(name: "Mockable")] +
+                (interfaceTargetName != nil ? [.target(name: interfaceTargetName!)] : []),
             settings: .settings(configurations: [
                 // This is important to exclude the mock implementations from release builds
                 .debug(name: .debug, settings: ["SWIFT_ACTIVE_COMPILATION_CONDITIONS": "$(inherited) MOCKING"]),
                 .release(name: .release, settings: [:]),
             ])
         ))
-        
+
         if hasTests {
             targets.append(.target(
                 name: "\(targetName)Tests",
